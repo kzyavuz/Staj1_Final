@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import axiosInstance from '../../../axiosConfig';
 import NotificationSnackbar from '../Global/NotificationSnackbar';
 import {
@@ -24,8 +24,8 @@ import {
 } from '@mui/material';
 
 function EmployeeUpdate() {
-	const { id } = useParams();
-	const employeeID = id;
+	const location = useLocation();
+	const { employeeID } = location.state || {};
 	const [employeeName, setEmployeeName] = useState('');
 	const [employeeSurName, setEmployeeSurName] = useState('');
 	const [userName, setUserName] = useState('');
@@ -62,9 +62,7 @@ function EmployeeUpdate() {
 	useEffect(() => {
 		const fetchEmployeeDetails = async () => {
 			try {
-				const response = await axiosInstance.post(`employee/EmployeeDetailsList/${id}`, {
-					id,
-				});
+				const response = await axiosInstance.post('employee/EmployeeDetailsList', { employeeID });
 				const employee = response.data;
 				setEmployeeName(employee.employeeName);
 				setEmployeeSurName(employee.employeeSurName);
@@ -93,8 +91,8 @@ function EmployeeUpdate() {
 
 		const fetchEmployeeWorks = async () => {
 			try {
-				const response = await axiosInstance.post(`employee/EmployeeWorksList/${id}`, {
-					id,
+				const response = await axiosInstance.post('employee/EmployeeWorksList', {
+					employeeID,
 				});
 				const worksData = response.data;
 				setWorks(worksData);
@@ -106,7 +104,7 @@ function EmployeeUpdate() {
 
 		fetchEmployeeDetails();
 		fetchEmployeeWorks();
-	}, [id]);
+	}, [employeeID]);
 
 	const handleFileChange = (e) => {
 		const file = e.target.files[0];

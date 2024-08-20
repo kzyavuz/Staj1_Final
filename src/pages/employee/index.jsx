@@ -103,7 +103,12 @@ function EmployeeIndex() {
 		}
 	};
 
-	const employeeUpdate = (employeeID) => navigate(`/employee/UpdateEmployee/${employeeID}`);
+	const employeeUpdate = (employeeID) =>
+		navigate('/employee/UpdateEmployee', {
+			state: {
+				employeeID,
+			},
+		});
 
 	return (
 		<Card component="section" className="mt-5">

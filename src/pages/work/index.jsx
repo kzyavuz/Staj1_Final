@@ -21,7 +21,6 @@ import {
 } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import WorkIcon from '@mui/icons-material/Work';
-import PersonActiveIcon from '@mui/icons-material/PersonAddDisabledTwoTone';
 import WorkOffIcon from '@mui/icons-material/WorkOff';
 import ModeInfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import AddIcon from '@mui/icons-material/Add';
@@ -113,7 +112,7 @@ function WorkIndex() {
 	};
 
 	const workUpdate = (workID) => {
-		navigate(`/work/UpdateWork/${workID}`);
+		navigate('/work/UpdateWork', { state: { workID } });
 	};
 
 	return (

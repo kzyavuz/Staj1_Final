@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import {
 	TextField,
 	Button,
@@ -17,8 +17,8 @@ import axiosInstance from '../../../axiosConfig';
 import NotificationSnackbar from '../Global/NotificationSnackbar';
 
 function UpdateWork() {
-	const { id } = useParams();
-	const workID = id;
+	const location = useLocation();
+	const { workID } = location.state || {};
 	const [workName, setWorkName] = useState('');
 	const [workDescription, setWorkDescription] = useState('');
 	const [workPrice, setWorkPrice] = useState('');
@@ -46,10 +46,11 @@ function UpdateWork() {
 	useEffect(() => {
 		const fetchWorkDetails = async () => {
 			try {
-				const response = await axiosInstance.post(`work/WorkDetails/${workID}`, {
+				const response = await axiosInstance.post('work/WorkDetails', {
 					workID,
 				});
 				const work = response.data;
+				console.log('içerik: ', work);
 				setWorkName(work.workName);
 				setWorkDescription(work.workDescription);
 				setWorkPrice(work.workPrice);
@@ -174,7 +175,7 @@ function UpdateWork() {
 						margin="normal"
 						error={!!errors.workLocal}
 						helperText={errors.workLocal}
-						disabled={!status} // Disable if status is false
+						disabled={!status}
 					/>
 					<TextField
 						label="İş Fiyatı"
@@ -184,7 +185,7 @@ function UpdateWork() {
 						margin="normal"
 						error={!!errors.workPrice}
 						helperText={errors.workPrice}
-						disabled={!status} // Disable if status is false
+						disabled={!status}
 					/>
 					<TextField
 						label="İl"
@@ -194,7 +195,7 @@ function UpdateWork() {
 						margin="normal"
 						error={!!errors.city}
 						helperText={errors.city}
-						disabled={!status} // Disable if status is false
+						disabled={!status}
 					/>
 					<TextField
 						label="İlçe"
@@ -204,7 +205,7 @@ function UpdateWork() {
 						margin="normal"
 						error={!!errors.district}
 						helperText={errors.district}
-						disabled={!status} // Disable if status is false
+						disabled={!status}
 					/>
 					<FormControl fullWidth margin="normal" error={!!errors.employeeID} disabled={!status}>
 						<InputLabel>Personel Seçiniz</InputLabel>
@@ -234,7 +235,7 @@ function UpdateWork() {
 						margin="normal"
 						error={!!errors.workDescription}
 						helperText={errors.workDescription}
-						disabled={!status} // Disable if status is false
+						disabled={!status}
 					/>
 					<Button variant="contained" color="primary" type="submit" style={style.button} disabled={!status}>
 						Güncelle

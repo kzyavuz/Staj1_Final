@@ -30,12 +30,12 @@ function Router() {
 							<Route path="employee/">
 								<Route path="index" element={<EmployeeIndex />} />
 								<Route path="AddEmployee" element={<EmplyeeAdd />} />
-								<Route path="UpdateEmployee/:id" element={<EmployeeUpdate />} />
+								<Route path="UpdateEmployee" element={<EmployeeUpdate />} />
 							</Route>
 							<Route path="work/">
 								<Route path="index" element={<WorkIndex />} />
 								<Route path="AddWork" element={<AddWork />} />
-								<Route path="UpdateWork/:id" element={<UpdateWork />} />
+								<Route path="UpdateWork" element={<UpdateWork />} />
 							</Route>
 							<Route path="user/">
 								<Route path="Profile" element={<Profile />} />
